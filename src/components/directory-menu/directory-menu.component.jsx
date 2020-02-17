@@ -49,9 +49,15 @@ class DirectiveMenu extends React.Component {
         return (
             <div className="directory-menu">
                 {
-                    this.state.sections.map(({title, imageUrl, id, size}) => {
-                        return <MenuItem key={id} title={title} imageUrl={imageUrl} size={size} />
-                    })
+                    // #### OPTION 1 TO PASS THE DESTRUCTURING THE PROPS
+                    // this.state.sections.map(({title, imageUrl, id, size}) => {
+                    //     return <MenuItem key={id} title={title} imageUrl={imageUrl} size={size} />
+                    // })
+
+                    // #### OPTION 1 TO PASS THE SPREAD THE PROPS EVEN WITHOUT TOUCHING THE ORIGINAL
+                    this.state.sections.map(({id, ...orderSomethingProps}) => {
+                      return <MenuItem key={id} {...orderSomethingProps} />
+                  })
                 }
             </div>
         );
