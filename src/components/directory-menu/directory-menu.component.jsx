@@ -58,7 +58,7 @@ class DirectiveMenu extends React.Component {
                     this.state.sections.map(({id, ...orderSomethingProps}) => {
                       return <MenuItem key={id} {...orderSomethingProps} />
                   })
-                }
+                } 
             </div>
         );
     }  
