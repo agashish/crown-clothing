@@ -1,0 +1,22 @@
+@mixin addClassStyle {
+    width: 30vw;
+}
+
+@mixin addNewDisplay {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin addTitle {
+    margin: 10px 0;
+}
+
+.sign-in {
+    @include addClassStyle();
+    @include addNewDisplay();
+    
+
+    .title {
+        @include addTitle();
+    }
+}
