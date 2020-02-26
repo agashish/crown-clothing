@@ -6,7 +6,7 @@ import './App.css';
 import ShopPage from './pages/shop-page/shop-page.component';
 import Header from './components/header/header.component';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 const HatsPage = props => {
   return (
@@ -26,14 +26,35 @@ class App extends React.Component {
 
   // #### FIRST TIME
   unsubscribeAuth = null;
+  
   componentDidMount = () => {
-    console.log('componentDidMount')
-    this.unsubscribeAuth = auth.onAuthStateChanged((user) => {
-      console.log('OPEN SUBSCRIBER INVOKED')
-      console.log(user);   
-      this.setState({
-        currentUser: user
-      })  
+    let userRef = null;
+
+    // OPEN OBSERVER
+    this.unsubscribeAuth = auth.onAuthStateChanged( async userAuth => {  
+      
+      if(userAuth) {
+        userRef = await createUserProfileDocument(userAuth);
+
+        // OPEN OBSERVER
+        userRef.onSnapshot(snapshot => {
+          // console.log(snapshot.data()) 
+          // console.log(snapshot)    
+          
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+            ...snapshot.data()
+            }
+          }, () => {
+            console.log(this.state)
+          })
+        })
+      } 
+           
+      this.setState({  
+        currentUser: userAuth
+      })
     })
   }
 
@@ -44,7 +65,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div>     
         <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage} />

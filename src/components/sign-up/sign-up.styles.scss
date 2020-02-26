@@ -1,0 +1,14 @@
+@mixin addSignUpStyle {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+}
+
+@mixin addTitle {
+    margin: 10px 0px;
+}
+
+.sign-up { 
+    @include addSignUpStyle();
+    @include addTitle();    
+}
