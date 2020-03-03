@@ -21,7 +21,7 @@ class App extends React.Component {
   // }
 
   // #### FIRST TIME
-  unsubscribeAuth = null;
+  unsubscribeAuth = null;   
   
   componentDidMount = () => {
     const {setCurrentUser} = this.props;
