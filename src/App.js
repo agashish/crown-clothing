@@ -37,7 +37,7 @@ class App extends React.Component {
         userRef.onSnapshot(snapshot => {
           // console.log(snapshot.data()) 
           // console.log(snapshot)    
-          
+              
           setCurrentUser({
             id: snapshot.id,
             ...snapshot.data()
