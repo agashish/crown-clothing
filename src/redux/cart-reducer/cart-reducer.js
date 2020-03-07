@@ -22,12 +22,13 @@ const cartReducer = (state = INITIAL_CART, action) => {
                 ...state,
                 hidden: !state.hidden     
             } 
-            
+              
         case cartTypes.ADD_ITEM: 
+            const cartItemArray = addItemToCart(state.cartItems, action.payload)
             return {
                 ...state,
-                cartItems: addItemToCart(state.cartItems, action.payload),
-                itemCounter: state.itemCounter + 1
+                cartItems: cartItemArray,
+                // itemCounter: cartItemArray.reduce((accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity, 0)
             }           
         
         default: return state;            

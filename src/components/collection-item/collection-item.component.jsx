@@ -7,7 +7,6 @@ import CustomButton from './../custom-button/custom-button.component';
 
 const CollectionItem = ({item, addItem}) => {
     const {id, name, imageUrl, price} = item;
-    console.log(id);
     return (
         <div className='collection-item'> 
             <div className='image' style={{

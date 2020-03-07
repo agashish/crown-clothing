@@ -6,7 +6,7 @@ import './header.styles.scss'
 import {auth} from './../../firebase/firebase.utils';
 import CartIcon from './../../components/cart-icon/cart-icon.component';
 import CartDropdown from './../../components/cart-dropdown/cart-dropdown.component';
-
+  
 const Header = ({currentUser, hidden}) => {
     return (
         <div className='header'>
