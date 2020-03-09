@@ -1,5 +1,5 @@
 import {cartTypes } from './cart.types';
-import {addItemToCart} from './cart.utils';
+import {addItemToCart, decreaseItemById} from './cart.utils';
 
 const INITIAL_CART = {
     itemCounter: 0,
@@ -27,10 +27,24 @@ const cartReducer = (state = INITIAL_CART, action) => {
             const cartItemArray = addItemToCart(state.cartItems, action.payload)
             return {
                 ...state,
-                cartItems: cartItemArray,
-                // itemCounter: cartItemArray.reduce((accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity, 0)
+                cartItems: cartItemArray
             }           
         
+        case cartTypes.REMOVE_ITEM:
+            return {
+                ...state,
+                cartItems: state.cartItems.filter(cartItem => {
+                    console.log(cartItem.id + '!==' + action.payload)
+                    return cartItem.id !== action.payload
+                })
+            }
+
+        case cartTypes.DECREASE_ITEM_BY_ID:
+            return {
+                ...state,
+                cartItems: decreaseItemById(state.cartItems, action.payload) 
+            }          
+  
         default: return state;            
     }
 }
