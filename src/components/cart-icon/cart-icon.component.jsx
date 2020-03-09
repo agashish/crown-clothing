@@ -1,7 +1,8 @@
 import React from 'react';
 import {ReactComponent as ShoppingIcon} from './../../assets/shop-bag.svg';
 import {connect} from 'react-redux'
-import {setCartItemCounter, toggleToOpenPopup} from './../../redux/cart-reducer/cart.actions';
+import {createStructuredSelector} from 'reselect';
+import {toggleToOpenPopup} from './../../redux/cart-reducer/cart.actions';
 import './cart-icon.styles.scss';
 import {selectCartItemCount} from './../../redux/cart-reducer/cart.selectors';
 
@@ -15,11 +16,9 @@ const CartIcon = ({toggleToOpenPopup, itemCounter}) => {
     )
 }
 
-const mapStateToProps = state => { 
-    return {
-        itemCounter: selectCartItemCount(state)
-    }
-}  
+const mapStateToProps = createStructuredSelector({
+    itemCounter: selectCartItemCount
+})
 
 const mapDispatchToProps = dispatch => ({
     // setCartItemCounter: (value) => dispatch(setCartItemCounter(value)),
