@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+
 import './collection-preview.styles.scss';
 import CollectionItem from './../collection-item/collection-item.component';
 
@@ -19,4 +21,8 @@ const CollectionPreview = ({title, items}) => {
     )
 }
 
-export default CollectionPreview;
+const mapStateToProps = (state, ownProps) => ({
+    // filterItemsOnDemand: 
+})
+
+export default connect()(CollectionPreview);
