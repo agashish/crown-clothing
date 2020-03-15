@@ -18,3 +18,10 @@ export const selectShopByCategory = categoryName => {
         (collections) => collections[categoryName] 
     )
 }
+
+export const filterItemsOnDemand = categoryName => {
+    return createSelector(
+        [selectShopData],
+        (collections) => collections[categoryName].items.filter((item, idx) => idx < 4)
+    )
+}
