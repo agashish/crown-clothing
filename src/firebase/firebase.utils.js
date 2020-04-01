@@ -25,15 +25,19 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     if( !userAuth ) return;
     
     const userRef = firestore.doc(`users/${userAuth.uid}`)
+    const collectionRef = firestore.collection('users')
+
     const snapShot = await userRef.get() // PROVIDE THE ACTUAL DATA - MEANS SNAPSHOT IF SOMEONE IS ASKING ABOUT IT.    
-    
-    if( !snapShot.exists ) {
+    const collectionSnapshot = await collectionRef.get();
+    // console.log({collection: collectionSnapshot.docs.map(doc => doc.data())});    
+
+    if( !snapShot.exists ) {      
 
         const { displayName, email } = userAuth;
         const createdAt = new Date();
 
         try {
-            await userRef.set({
+            await userRef.set({ 
                 name: displayName,
                 email: email,
                 createdAt,
@@ -56,6 +60,37 @@ provider.setCustomParameters({ prompt: 'select_account' })
 
 // #### INVOKE TO OPEN GOOGLE SININ POPUP OR OTHERS LIKE TWITTER | FACEBOOK - MULTIPLE POPUPS
 export const signInWithGoogle = () => auth.signInWithPopup(provider)
+
+export const addCollectionAndDocument = async (collectionKey, objectToAdd) => {
+    
+    const collectionRef = firestore.collection(collectionKey)
+
+    // #### MAKE AN ONE BIG REQUEST
+    const batch = firestore.batch();
+    objectToAdd.forEach(obj => {
+        const newDocRef = collectionRef.doc()
+        batch.set(newDocRef, obj)
+    })
+
+    // #### WE WILL COMMIT IF ALL HAPPENED SUCCESSFUL
+    return await batch.commit()
+}
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+    const transformedCollection = collections.docs.map(doc => {
+        const {title, items } = doc.data();
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title, items
+        }
+    })
+
+    return transformedCollection.reduce((accumulator, collection) => {
+        accumulator[collection.title.toLowerCase()] = collection;
+        return accumulator;    
+    }, {});
+}
 
 // #### EXPORTED THE WHOLE LIBRARY
 export default firebase;

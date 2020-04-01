@@ -2,22 +2,27 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {selectShopByCategory} from './../../redux/shop-reducer/shop.selectors.js';
 import CollectionItem from './../../components/collection-item/collection-item.component';
-import './category.styles.scss';
+// import './category.styles.scss';
 
+import {
+    CollectionPageContainer,
+    TitleStyle,
+    ItemsStyle
+} from './category-page.styles'; 
 const CategoryPage = ({collection: {title, items}}) => {
     
     return (
-        <div className='collection-page'>
-            <h1 className='title'>{title.toUpperCase()}</h1>
-            <div className='items'>
+        <CollectionPageContainer>
+            <TitleStyle>{title.toUpperCase()}</TitleStyle>
+            <ItemsStyle>
                {
                    items
-                   .map(item => 
+                   .map(item =>                         
                         <CollectionItem key={item.id} item={item} />
                     )
                }
-            </div>
-        </div>
+            </ItemsStyle>
+        </CollectionPageContainer>
     )
 }
 

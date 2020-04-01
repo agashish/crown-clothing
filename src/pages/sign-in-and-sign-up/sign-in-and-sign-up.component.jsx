@@ -1,16 +1,16 @@
 import React from 'react';
-
-import './sign-in-and-sign-up.styles.scss';
+import {SignInSignUpStyles} from './sign-in-sign-up.styles';
+// import './sign-in-and-sign-up.styles.scss';
 
 import SignIn from './../../components/sign-in/sign-in.component';
 
 import SignUp from './../../components/sign-up/sign-up.component';
 
 const SignInAndSignUp = () => (
-    <div className='sign-in-and-sign-up'>
+    <SignInSignUpStyles>
         <SignIn />  
         <SignUp />  
-    </div>
+    </SignInSignUpStyles>
 )  
 
 export default SignInAndSignUp;  

@@ -15,7 +15,7 @@ import CheckoutPage from './pages/checkout/checkout.component';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
-class App extends React.Component { 
+class App extends React.Component {  
   
   // constructor() {
   //   super();
@@ -53,12 +53,14 @@ class App extends React.Component {
       } 
            
       setCurrentUser(userAuth)
+      
     })
   }
 
   // #### UNMOUNTED THE COMPONENT IF LEFT FROM DOM
   ucomponentWillUnmount() {
     this.unsubscribeAuth();
+    console.log('Google Unsubscribe')
   }
 
   render() {
@@ -86,3 +88,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps, 
   mapDispatchToProps)(App);
+ 
